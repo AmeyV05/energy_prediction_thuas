@@ -4,3 +4,4 @@ plotly
 prophet
 statsmodels
 numpy
+sklearn
