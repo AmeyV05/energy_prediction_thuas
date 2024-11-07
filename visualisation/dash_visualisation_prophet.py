@@ -25,7 +25,7 @@ energy_consump_df['Datum-tijd tot'] = pd.to_datetime(energy_consump_df['Datum-ti
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
-    html.H1("Short-Term THUAS Delft Building Energy Forecasting"),
+    html.H1("Short-Term (1 Day) THUAS Delft Building Energy Forecasting"),
     
     # Input to select start date
     html.Label('Select Start Date'),
@@ -33,10 +33,6 @@ app.layout = html.Div([
         id='start-date-picker',
         date='2023-02-01',
     ),
-    
-    # Input to select forecast days
-    html.Label('Select Days for Forecasting'),
-    dcc.Input(id='forecast-days-input', value=1, type='number'),
     
     # Forecast graph and metrics table (now first)
     html.Div([
@@ -59,11 +55,11 @@ app.layout = html.Div([
      Output('forecast-graph', 'figure'),
      Output('validation-metrics-table', 'children'),
      Output('forecast-metrics-table', 'children')],
-    [Input('start-date-picker', 'date'),
-     Input('forecast-days-input', 'value')]
+    [Input('start-date-picker', 'date')]
 )
-def update_visualizations(start_date, days_to_forecast):
+def update_visualizations(start_date):
     start_date = pd.to_datetime(start_date)
+    days_to_forecast = 1  # Hardcoded to 1 day
     
     # Load and run your models here
     # Initialize models
