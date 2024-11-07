@@ -11,6 +11,7 @@ from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import pandas as pd
 from dash import dash_table
+import dash_loading_spinners as dls  # You'll need to pip install dash-loading-spinners
 
 from models import ETSModelWeekly, ProphetModelWeekly, MetricsCalculator
 
@@ -34,18 +35,36 @@ app.layout = html.Div([
         date='2023-02-01',
     ),
     
-    # Forecast graph and metrics table (now first)
+    # Forecast section with loading state
     html.Div([
         html.H2("Forecast"),
-        dcc.Graph(id='forecast-graph'),
-        html.Div(id='forecast-metrics-table', style={'text-align': 'center'}),
+        dls.Hash(  # Loading spinner
+            children=[
+                dcc.Graph(id='forecast-graph'),
+                html.Div(id='forecast-metrics-table', style={'text-align': 'center'}),
+            ],
+            color="#435278",
+            fullscreen=False,
+            loading_state={'component_name': 'forecast-loading'},
+            debounce=0,
+            text="Running forecast models... This may take a few moments."
+        ),
     ], style={'display': 'flex', 'flex-direction': 'column'}),
 
-    # Validation graph and metrics table (now second)
+    # Validation section with loading state
     html.Div([
         html.H2("Validation"),
-        dcc.Graph(id='model-validation-graph'),
-        html.Div(id='validation-metrics-table', style={'text-align': 'center'}),
+        dls.Hash(  # Loading spinner
+            children=[
+                dcc.Graph(id='model-validation-graph'),
+                html.Div(id='validation-metrics-table', style={'text-align': 'center'}),
+            ],
+            color="#435278",
+            fullscreen=False,
+            loading_state={'component_name': 'validation-loading'},
+            debounce=0,
+            text="Calculating validation metrics..."
+        ),
     ], style={'display': 'flex', 'flex-direction': 'column'}),
 ])
 

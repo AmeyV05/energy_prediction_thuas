@@ -5,3 +5,4 @@ prophet
 statsmodels
 numpy
 scikit-learn
+dash-loading-spinners>=1.0.0
