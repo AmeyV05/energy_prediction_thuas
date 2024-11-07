@@ -45,9 +45,10 @@ app.layout = html.Div([
             ],
             color="#435278",
             fullscreen=False,
-            loading_state={'component_name': 'forecast-loading'},
+            show_initially=False,
             debounce=0,
-            text="Running forecast models... This may take a few moments."
+            id='forecast-loading',
+            size=50,
         ),
     ], style={'display': 'flex', 'flex-direction': 'column'}),
 
@@ -61,9 +62,10 @@ app.layout = html.Div([
             ],
             color="#435278",
             fullscreen=False,
-            loading_state={'component_name': 'validation-loading'},
+            show_initially=False,
             debounce=0,
-            text="Calculating validation metrics..."
+            id='validation-loading',
+            size=50,
         ),
     ], style={'display': 'flex', 'flex-direction': 'column'}),
 ])
